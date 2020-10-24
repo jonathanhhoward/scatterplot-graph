@@ -14,18 +14,6 @@ function scatterplotGraph(dataset) {
   const svgWidth = window.innerWidth;
   const svgHeight = window.innerHeight * 0.97;
   const margin = { top: 100, right: 50, bottom: 50, left: 100 };
-  const chartWidth = svgWidth - margin.left - margin.right;
-  const chartHeight = svgHeight - margin.top - margin.bottom;
-
-  const xScale = d3.scaleTime()
-    .domain(d3.extent(dataset, d => d.dateYear))
-    .range([0, chartWidth]);
-
-  const yScale = d3.scaleTime()
-    .domain(d3.extent(dataset, data => data.dateTime))
-    .range([chartHeight, 0]);
-
-  const colorScale = d3.scaleOrdinal(['blue', 'orange']);
 
   const root = d3.select('#root');
 
@@ -43,14 +31,27 @@ function scatterplotGraph(dataset) {
   const chart = svg.append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
+  const chartWidth = svgWidth - margin.left - margin.right;
+  const chartHeight = svgHeight - margin.top - margin.bottom;
+
+  const xScale = d3.scaleTime()
+    .domain(d3.extent(dataset, d => d.dateYear))
+    .range([0, chartWidth]);
+
   chart.append('g')
     .attr('id', 'x-axis')
     .attr('transform', `translate(0, ${chartHeight})`)
     .call(d3.axisBottom(xScale));
 
+  const yScale = d3.scaleTime()
+    .domain(d3.extent(dataset, data => data.dateTime))
+    .range([chartHeight, 0]);
+
   chart.append('g')
     .attr('id', 'y-axis')
     .call(d3.axisLeft(yScale).tickFormat(d3.timeFormat('%M:%S')));
+
+  const colorScale = d3.scaleOrdinal(['blue', 'orange']);
 
   chart.selectAll('circle')
     .data(dataset)
@@ -71,13 +72,13 @@ function scatterplotGraph(dataset) {
     .attr('class', 'legend')
     .attr('transform', `translate(${chartWidth - 200}, ${chartHeight - 100})`);
 
-  const itemSize = 10;
-  const itemSpacing = 5;
-
   const legendItems = legend.selectAll('g')
     .data(['Doping Allegations', 'No Doping Allegations'])
     .enter()
     .append('g');
+
+  const itemSize = 10;
+  const itemSpacing = 5;
 
   legendItems.append('rect')
     .attr('x', 0)
