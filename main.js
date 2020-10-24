@@ -6,8 +6,9 @@ d3.json(datasetURL)
       d.dateYear = new Date(d3.timeParse('%Y')(d.Year));
       d.dateTime = new Date(d3.timeParse('%M:%S')(d.Time));
     });
-    scatterplotGraph(dataset);
+    return dataset;
   })
+  .then(scatterplotGraph)
   .catch(console.error);
 
 function scatterplotGraph(dataset) {
