@@ -14,7 +14,7 @@ d3.json(datasetURL)
 function scatterplotGraph(dataset) {
   const svgWidth = window.innerWidth;
   const svgHeight = window.innerHeight * 0.97;
-  const margin = { top: 100, right: 50, bottom: 50, left: 100 };
+  const margin = { top: 80, right: 80, bottom: 80, left: 80 };
 
   const root = d3.select('#root');
 
@@ -68,29 +68,31 @@ function scatterplotGraph(dataset) {
     .on('mouseover', showTooltip)
     .on('mouseout', hideTooltip);
 
-  const legend = chart.append('g')
+  const legend = svg.append('g')
     .attr('id', 'legend')
     .attr('class', 'legend')
-    .attr('transform', `translate(${chartWidth - 200}, ${chartHeight - 100})`);
+    .attr('transform', `translate(${margin.left}, ${svgHeight - margin.bottom * 0.5})`);
 
   const legendItems = legend.selectAll('g')
     .data(['Doping Allegations', 'No Doping Allegations'])
     .enter()
     .append('g');
 
-  const itemSize = 10;
-  const itemSpacing = 5;
+
+  const itemWidth = 150;
+  const swatchSize = 10;
+  const swatchSpacing = 5;
 
   legendItems.append('rect')
-    .attr('x', 0)
-    .attr('y', (d, i) => i * (itemSize + itemSpacing))
-    .attr('width', itemSize)
-    .attr('height', itemSize)
+    .attr('x', (d, i) => i * itemWidth)
+    .attr('y', 0)
+    .attr('width', swatchSize)
+    .attr('height', swatchSize)
     .attr('fill', d => colorScale(d));
 
   legendItems.append('text')
-    .attr('x', itemSize + itemSpacing)
-    .attr('y', (d, i) => i * (itemSize + itemSpacing))
+    .attr('x', (d, i) => i * itemWidth + swatchSize + swatchSpacing)
+    .attr('y', 0)
     .attr('dy', '.71em')
     .text(d => d);
 
