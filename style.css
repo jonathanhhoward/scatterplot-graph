@@ -24,7 +24,8 @@ html {
   position: absolute;
   z-index: 10;
   display: none;
-  background: #eeeeee;
+  background-color: #333333;
+  color: #eeeeee;
   text-align: left;
   max-width: 200px;
   border-radius: 4px;
