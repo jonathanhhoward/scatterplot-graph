@@ -24,7 +24,6 @@ function scatterplotGraph(dataset) {
 
   svg.append('text')
     .attr('id', 'title')
-    .attr('class', 'title')
     .attr('x', svgWidth * 0.5)
     .attr('y', margin.top * 0.5)
     .text('Doping in Professional Bicycle Racing');
@@ -70,14 +69,12 @@ function scatterplotGraph(dataset) {
 
   const legend = svg.append('g')
     .attr('id', 'legend')
-    .attr('class', 'legend')
     .attr('transform', `translate(${margin.left}, ${svgHeight - margin.bottom * 0.5})`);
 
   const legendItems = legend.selectAll('g')
     .data(['Doping Allegations', 'No Doping Allegations'])
     .enter()
     .append('g');
-
 
   const itemWidth = 150;
   const swatchSize = 10;
@@ -97,8 +94,7 @@ function scatterplotGraph(dataset) {
     .text(d => d);
 
   const tooltip = root.append('div')
-    .attr('id', 'tooltip')
-    .attr('class', 'tooltip');
+    .attr('id', 'tooltip');
 
   function showTooltip(event, data) {
     const w = 200;

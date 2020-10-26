@@ -9,18 +9,18 @@ html {
   box-sizing: inherit;
 }
 
-.title {
+#title {
   text-anchor: middle;
   font-size: 2rem;
   font-weight: bold;
 }
 
-.legend,
-.tooltip {
+#legend,
+#tooltip {
   font-size: 0.8rem;
 }
 
-.tooltip {
+#tooltip {
   position: absolute;
   z-index: 10;
   display: none;
