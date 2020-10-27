@@ -100,11 +100,13 @@ function scatterplotGraph(dataset) {
     const w = 200;
     const h = 100;
     const offset = 20;
-    const x = event.pageX + offset;
-    const y = event.pageY + offset;
-    const { innerWidth, innerHeight } = window;
-    const isOverflowX = x + w > innerWidth;
-    const isOverflowY = y + h > innerHeight;
+    const { pageX, pageY } = event;
+    const left = pageX + offset;
+    const top = pageY + offset;
+    const right = (svgWidth - pageX) + offset;
+    const bottom = (svgHeight - pageY) + offset;
+    const isOverflowX = left + w > svgWidth;
+    const isOverflowY = top + h > svgHeight;
 
     tooltip.attr('data-year', data.dateYear)
       .html(
@@ -112,10 +114,10 @@ function scatterplotGraph(dataset) {
         `Year: ${data.Year} Time: ${data.Time}` +
         (data.Doping ? `<br><br>${data.Doping}` : ''),
       )
-      .style('left', isOverflowX ? '' : `${x}px`)
-      .style('top', isOverflowY ? '' : `${y}px`)
-      .style('right', isOverflowX ? `${innerWidth - x}px` : '')
-      .style('bottom', isOverflowY ? `${innerHeight - y}px` : '')
+      .style('left', isOverflowX ? '' : `${left}px`)
+      .style('top', isOverflowY ? '' : `${top}px`)
+      .style('right', isOverflowX ? `${right}px` : '')
+      .style('bottom', isOverflowY ? `${bottom}px` : '')
       .style('display', 'block');
   }
 
