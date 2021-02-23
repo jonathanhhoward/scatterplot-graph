@@ -55,8 +55,7 @@ function scatterplotGraph(dataset) {
 
   chart.selectAll('circle')
     .data(dataset)
-    .enter()
-    .append('circle')
+    .join('circle')
     .attr('class', 'dot')
     .attr('cx', d => xScale(d.dateYear))
     .attr('cy', d => yScale(d.dateTime))
@@ -73,8 +72,7 @@ function scatterplotGraph(dataset) {
 
   const legendItems = legend.selectAll('g')
     .data(['Doping Allegations', 'No Doping Allegations'])
-    .enter()
-    .append('g');
+    .join('g');
 
   const itemWidth = 150;
   const swatchSize = 10;
